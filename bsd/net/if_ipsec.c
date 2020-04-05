@@ -2706,11 +2706,13 @@ ipsec_ctl_connect(kern_ctl_ref kctlref,
 	 * Mark the data path as ready.
 	 * If kpipe nexus is being used then the data path is marked ready only when a kpipe channel is connected.
 	 */
+#if IPSEC_NEXUS
 	if (pcb->ipsec_kpipe_count == 0) {
 		lck_mtx_lock(&pcb->ipsec_pcb_data_move_lock);
 		IPSEC_SET_DATA_PATH_READY(pcb);
 		lck_mtx_unlock(&pcb->ipsec_pcb_data_move_lock);
 	}
+#endif
 
 	/* The interfaces resoures allocated, mark it as running */
 	ifnet_set_flags(pcb->ipsec_ifp, IFF_RUNNING, IFF_RUNNING);
