@@ -201,18 +201,18 @@ ARCH_FLAGS_X86_64H	  = -arch x86_64h
 
 ifneq ($(filter ARM ARM64,$(CURRENT_ARCH_CONFIG)),)
 
-ifndef ARCH_STRING_FOR_CURRENT_MACHINE_CONFIG
-export ARCH_STRING_FOR_CURRENT_MACHINE_CONFIG := $(shell $(EMBEDDED_DEVICE_MAP) -db $(EDM_DBPATH) -query SELECT DISTINCT KernelMachOArchitecture FROM Targets WHERE KernelPlatform IS \"$(CURRENT_MACHINE_CONFIG_LC)\" LIMIT 1 || echo UNKNOWN )
-endif
+#ifndef ARCH_STRING_FOR_CURRENT_MACHINE_CONFIG
+#export ARCH_STRING_FOR_CURRENT_MACHINE_CONFIG := $(shell $(EMBEDDED_DEVICE_MAP) -db $(EDM_DBPATH) -query SELECT DISTINCT KernelMachOArchitecture FROM Targets WHERE KernelPlatform IS \"$(CURRENT_MACHINE_CONFIG_LC)\" LIMIT 1 || echo UNKNOWN )
+#endif
 
 #
 # This can have false negatives, and is used to avoid calling CTF when we'll build a static KC
 #
-ifndef WILL_BUILD_STATIC_KC
-export WILL_BUILD_STATIC_KC := $(shell $(EMBEDDED_DEVICE_MAP) -db $(EDM_DBPATH)	\
-				-query 'SELECT COUNT(*) != 0 FROM Targets WHERE KernelPlatform IS "$(CURRENT_MACHINE_CONFIG_LC)" \
-					AND (KernelMachOArchitecture LIKE "arm64e" OR ProductType LIKE "iphone10,%")')
-endif
+#ifndef WILL_BUILD_STATIC_KC
+#export WILL_BUILD_STATIC_KC := $(shell $(EMBEDDED_DEVICE_MAP) -db $(EDM_DBPATH)	\
+#				-query 'SELECT COUNT(*) != 0 FROM Targets WHERE KernelPlatform IS "$(CURRENT_MACHINE_CONFIG_LC)" \
+#					AND (KernelMachOArchitecture LIKE "arm64e" OR ProductType LIKE "iphone10,%")')
+#endif
 
 BUILD_STATIC_LINK := 1
 
