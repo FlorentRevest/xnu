@@ -1,0 +1,36 @@
+/dts-v1/;
+
+/ {
+	#address-cells = <2>;
+	#size-cells = <2>;
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu0 {
+			reg = <0xf00>;
+			cpu-id = <0x0>;
+			state = "running";
+		};
+	};
+
+	arm-io {
+		device_type = "bcm2837-io";
+		ranges = <0x7e000000 0 0x3f000000 0 0x1000000 0>;
+
+		#address-cells = <2>;
+		#size-cells = <2>;
+
+		gpio { reg = <0x200000 0 0xB4 0>; };
+		aux  { reg = <0x215000 0 0xE4 0>; };
+	};
+
+	chosen {
+		random-seed = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xA 0xB 0xC 0xD 0xE 0xF>;
+		memory-map { };
+	};
+
+	defaults { };
+};
+
