@@ -1581,6 +1581,8 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	assert(segTEXTEXECB == segDATACONSTB + segSizeDATACONST);
 	vm_kernel_etext = segTEXTB + segSizeTEXT + segSizeDATACONST + segSizeTEXTEXEC;
 
+	PE_slide_devicetree(gVirtBase - gPhysBase);
+
 	dynamic_memory_begin = ROUND_TWIG(dynamic_memory_begin);
 	pmap_bootstrap(dynamic_memory_begin);
 
